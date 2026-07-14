@@ -1,0 +1,270 @@
+.markdown-body {
+  font-family: var(--font-prose);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--ink);
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+.markdown-body > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  font-family: var(--font-ui);
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin: 1.6em 0 0.55em;
+  color: var(--ink);
+}
+
+.markdown-body h1 {
+  font-size: 2rem;
+  padding-bottom: 0.35em;
+  border-bottom: 1px solid var(--border);
+}
+
+.markdown-body h2 {
+  font-size: 1.45rem;
+  padding-bottom: 0.25em;
+  border-bottom: 1px solid var(--border);
+}
+
+.markdown-body h3 {
+  font-size: 1.2rem;
+}
+
+.markdown-body a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.markdown-body .header-anchor {
+  text-decoration: none;
+  opacity: 0;
+  margin-right: 0.25rem;
+  color: var(--ink-muted);
+  font-weight: 500;
+}
+
+.markdown-body h1:hover .header-anchor,
+.markdown-body h2:hover .header-anchor,
+.markdown-body h3:hover .header-anchor,
+.markdown-body h4:hover .header-anchor {
+  opacity: 0.7;
+}
+
+.markdown-body a:hover {
+  color: var(--accent-strong);
+}
+
+.markdown-body p,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body blockquote,
+.markdown-body pre,
+.markdown-body table,
+.markdown-body dl,
+.markdown-body details {
+  margin: 0.85em 0;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 1.4em;
+}
+
+.markdown-body li + li {
+  margin-top: 0.25em;
+}
+
+.markdown-body blockquote {
+  margin-left: 0;
+  padding: 0.2em 0 0.2em 1em;
+  border-left: 3px solid var(--blockquote-border);
+  color: var(--ink-muted);
+}
+
+.markdown-body code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--code-bg);
+  padding: 0.12em 0.38em;
+  border-radius: 6px;
+}
+
+.markdown-body pre {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.95rem 1rem;
+  overflow: auto;
+}
+
+.markdown-body pre code {
+  background: transparent;
+  padding: 0;
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.markdown-body .table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  margin: 0.85em 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.markdown-body .table-scroll table {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+.markdown-body th,
+.markdown-body td {
+  border: 1px solid var(--border);
+  padding: 0.55rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+.markdown-body th {
+  background: var(--accent-soft);
+  font-family: var(--font-ui);
+  font-size: 0.92rem;
+}
+
+.markdown-body .table-col-head {
+  position: relative;
+}
+
+.markdown-body .col-resizer {
+  position: absolute;
+  top: 0;
+  right: -3px;
+  width: 8px;
+  height: 100%;
+  cursor: col-resize;
+  z-index: 2;
+}
+
+.markdown-body .col-resizer:hover,
+body.col-resizing .col-resizer {
+  background: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.markdown-body hr {
+  border: 0;
+  height: 1px;
+  background: var(--border-strong);
+  margin: 1.8em 0;
+}
+
+.markdown-body img {
+  max-width: 100%;
+  border-radius: var(--radius-sm);
+}
+
+.markdown-body mark {
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
+  color: inherit;
+  padding: 0.05em 0.2em;
+  border-radius: 4px;
+}
+
+.markdown-body .task-list-item {
+  list-style: none;
+  margin-left: -1.1em;
+}
+
+.markdown-body .task-list-item input {
+  margin-right: 0.45em;
+}
+
+.markdown-body .footnote-ref,
+.markdown-body .footnote-backref {
+  text-decoration: none;
+}
+
+.markdown-body .admonition {
+  border: 1px solid var(--border);
+  border-left-width: 3px;
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  margin: 1.1em 0;
+  background: color-mix(in srgb, var(--surface-solid) 80%, var(--accent-soft));
+}
+
+.markdown-body .admonition-title {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 0.92rem;
+  margin: 0 0 0.35rem;
+}
+
+.markdown-body .admonition.info {
+  border-left-color: #0284c7;
+}
+
+.markdown-body .admonition.warning {
+  border-left-color: #d97706;
+}
+
+.markdown-body .admonition.tip {
+  border-left-color: var(--accent);
+}
+
+.markdown-body .mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+}
+
+.markdown-body .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.4rem 0;
+}
+
+.markdown-body .table-of-contents {
+  font-family: var(--font-ui);
+  font-size: 0.92rem;
+  padding: 0.9rem 1rem;
+  margin: 1rem 0 1.4rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--accent-soft) 55%, var(--surface-solid));
+}
+
+.markdown-body .table-of-contents ul {
+  margin: 0.35rem 0 0;
+}
+
+.hljs {
+  background: transparent !important;
+  color: inherit;
+}
