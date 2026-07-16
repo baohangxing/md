@@ -117,7 +117,7 @@ async function schedulePreview(source: string): Promise<void> {
   await new Promise<void>((resolve) => {
     renderTimer = window.setTimeout(async () => {
       await updatePreview(previewEl, source, resolveTheme())
-      if (present?.isActive()) present.refreshOutline()
+      if (present?.isActive() || present?.isPreviewOutlineActive()) present.refreshOutline()
       resolve()
     }, 100)
   })
@@ -125,6 +125,13 @@ async function schedulePreview(source: string): Promise<void> {
 
 const layout = createLayout(workspace, state.layout, state.splitRatio, (mode, ratio) => {
   persistNow({ layout: mode, splitRatio: ratio })
+  if (present) {
+    if (mode === 'preview-only') {
+      present.showPreviewOutline()
+    } else {
+      present.hidePreviewOutline()
+    }
+  }
 })
 
 bindSplitter(splitter, workspace, layout)
@@ -166,6 +173,10 @@ present = createPresentMode(shell, {
   getPreviewScroller: () => previewEl.parentElement,
 })
 presentBtn.addEventListener('click', () => present?.enter())
+
+if (layout.getLayout() === 'preview-only') {
+  present?.showPreviewOutline()
+}
 
 function downloadText(filename: string, text: string, type: string): void {
   const blob = new Blob([text], { type })

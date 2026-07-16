@@ -6,6 +6,9 @@ export interface PresentApi {
   toggle: () => void
   isActive: () => boolean
   refreshOutline: () => void
+  showPreviewOutline: () => void
+  hidePreviewOutline: () => void
+  isPreviewOutlineActive: () => boolean
 }
 
 const HIDE_MS = 3000
@@ -21,6 +24,8 @@ export function createPresentMode(
   } = {},
 ): PresentApi {
   let active = false
+  let previewOutlineActive = false
+  let scrollListenerAdded = false
   let hideTimer = 0
 
   const outline = document.createElement('aside')
@@ -42,6 +47,20 @@ export function createPresentMode(
   document.body.append(dock)
 
   const outlineBody = outline.querySelector('.present-outline-body') as HTMLElement
+
+  const ensureScrollListener = () => {
+    if (scrollListenerAdded) return
+    const scroller = handlers.getPreviewScroller?.()
+    scroller?.addEventListener('scroll', onScroll, { passive: true })
+    scrollListenerAdded = true
+  }
+
+  const removeScrollListener = () => {
+    if (!scrollListenerAdded) return
+    const scroller = handlers.getPreviewScroller?.()
+    scroller?.removeEventListener('scroll', onScroll)
+    scrollListenerAdded = false
+  }
 
   const hideDock = () => {
     dock.classList.remove('is-visible')
@@ -111,7 +130,7 @@ export function createPresentMode(
   }
 
   const onScroll = () => {
-    if (!active) return
+    if (!active && !previewOutlineActive) return
     syncActiveOutline()
   }
 
@@ -132,8 +151,7 @@ export function createPresentMode(
       outline.classList.add('is-visible')
       document.addEventListener('keydown', onKey)
       document.addEventListener('mousemove', onMove)
-      const scroller = handlers.getPreviewScroller?.()
-      scroller?.addEventListener('scroll', onScroll, { passive: true })
+      ensureScrollListener()
       refreshOutline()
       showDockTemporarily()
       requestAnimationFrame(() => {
@@ -147,13 +165,14 @@ export function createPresentMode(
       active = false
       document.body.classList.remove('present-mode')
       shell.classList.remove('present-active')
-      outline.classList.remove('is-visible')
+      if (!previewOutlineActive) {
+        outline.classList.remove('is-visible')
+        removeScrollListener()
+      }
       dock.classList.remove('is-visible')
       window.clearTimeout(hideTimer)
       document.removeEventListener('keydown', onKey)
       document.removeEventListener('mousemove', onMove)
-      const scroller = handlers.getPreviewScroller?.()
-      scroller?.removeEventListener('scroll', onScroll)
       document.querySelector('.ink-overlay')?.remove()
       handlers.onExit?.()
     },
@@ -165,6 +184,24 @@ export function createPresentMode(
       return active
     },
     refreshOutline,
+    showPreviewOutline() {
+      if (previewOutlineActive) return
+      previewOutlineActive = true
+      outline.classList.add('is-visible')
+      ensureScrollListener()
+      refreshOutline()
+    },
+    hidePreviewOutline() {
+      if (!previewOutlineActive) return
+      previewOutlineActive = false
+      if (!active) {
+        outline.classList.remove('is-visible')
+        removeScrollListener()
+      }
+    },
+    isPreviewOutlineActive() {
+      return previewOutlineActive
+    },
   }
 
   return api
